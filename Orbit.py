@@ -5,13 +5,12 @@ import math
 
 class Orbit(Shape):
 
-    def __init__(self, master_shape, slave_shape, center, radius, orbit_time):
-        self.center = center
-        self.master_shape = master_shape
-        self.slave_shape = slave_shape
+    def __init__(self, master_shape, slave_shape, radius, orbit_time):
         self.radius = radius
         # time it takes to complete 1 orbit
         self.orbit_time = orbit_time
+        self.master_shape = master_shape
+        self.slave_shape = slave_shape
 
     # Calculate its position in 3d spacein the orbit using the given time value
     def update_slave_position(self, time):
@@ -23,7 +22,7 @@ class Orbit(Shape):
         self.slave_shape.set_gravitycenter(slave_center)
 
     def set_gravitycenter(self, center):
-        self.center = center
+        pass
 
     def gravity_center(self):
-        return self.center
+        self.master_shape.gravity_center()

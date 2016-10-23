@@ -1,6 +1,5 @@
 # pip install -r requirements.txt
 PyOpenGL 
 PyOpenGL_accelerate
-valideer
-Pillow
+opencv-python
 numpy

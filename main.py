@@ -6,6 +6,7 @@ from System import System
 from Camera import Camera
 from Timer import Timer
 from BackgroundPainter import BackgroundPainter
+import numpy as np
 
 
 class Window:
@@ -33,16 +34,25 @@ class Window:
         return self.win_size[1]
 
     def __gl_init(self):
-        glEnable(GL_BLEND)
-        glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA)
+        glClearColor(0.0, 0.0, 0.0, 0.0)
+        glShadeModel(GL_SMOOTH)
+        glEnable(GL_TEXTURE_2D)
+        glEnable(GL_DEPTH_TEST)
+        # glEnable(GL_BLEND)
+        # glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA)
 
     def __init_lightning(self):
-        # color search
-        glEnable(GL_COLOR_MATERIAL)
-        #glEnable(GL_DEPTH_TEST)
         glEnable(GL_LIGHTING)
-        glLightModelf(GL_LIGHT_MODEL_TWO_SIDE, GL_TRUE)
-        glEnable(GL_NORMALIZE)
+        glMatrixMode(GL_MODELVIEW)
+        glLoadIdentity()
+
+        mat_specular = np.array([1.0, 1.0, 1.0, 1.0])
+        mat_ambience = np.array([ 0.3, 0.3, 0.3, 1.0])
+        mat_shininess = np.array([20.0])
+
+        glMaterialfv(GL_FRONT, GL_SPECULAR, mat_specular)
+        glMaterialfv(GL_FRONT, GL_SHININESS, mat_shininess)
+        glMaterialfv(GL_FRONT, GL_AMBIENT, mat_ambience)
 
     def __register_event_handlers(self):
         glutDisplayFunc(self.application.display)
@@ -64,22 +74,26 @@ class Application:
     def __init__(self):
         self.window = None
 
-        self.time = None
-        self.time_speed = None
+        self.time = 2.552
+        self.time_speed = 0.1
         self.timer = Timer(10, True)
 
-        self.sun = None
-        self.solar_system = System(self.sun)
+        self.solar_system = System()
         self.background_painter = BackgroundPainter('path_to_background')
         self.camera = Camera()
 
+    def __init_solar_system(self):
+        pass
+
     def start_timer(self):
         self.timer.start(self.on_timer)
+        self.camera.move()
 
     def on_timer(self):
         # update the logic and simulation
         self.time += self.time_speed
-
+        self.solar_system.update_state(self.time)
+        glutPostRedisplay()
 
     def create_shapes(self):
         pass
@@ -94,11 +108,10 @@ class Application:
         glLoadIdentity()
         # perform the camera orientation transform
         self.camera.transform_orientation()
+        self.camera.transform_translation()
         # draw the skybox
         self.background_painter.draw()
-        self.camera.transform_translation()
-
-
+        self.solar_system.draw()
 
         glFlush()
         glutSwapBuffers()
@@ -116,7 +129,6 @@ if __name__ == "__main__":
     app = Application()
     window = Window(app)
     app.window = window
-
     window.main_loop()
 
 

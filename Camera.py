@@ -67,6 +67,7 @@ class Camera:
         PitchDown = 8
         RollLeft = 9
         RollRight = 10
+        Stop = 11
 
     def __init__(self):
         # a vector pointing to the direction you're facing
@@ -79,7 +80,7 @@ class Camera:
         # the camera speed
         self.speed = 0.005
         self.turn_speed = 0.01
-        self.state = Camera.CameraState.Forward
+        self.state = Camera.CameraState.Stop
         self.camera_routes = dict()
 
     def __init_camera_routes(self):
@@ -93,6 +94,7 @@ class Camera:
                                    Camera.CameraState.PitchDown: self.pitch_down,
                                    Camera.CameraState.RollLeft: self.roll_left,
                                    Camera.CameraState.RollRight: self.roll_right,
+                                   Camera.CameraState.Stop: self.stop
                                    })
 
     def set_state(self, state):
@@ -139,6 +141,9 @@ class Camera:
     def slow_down(self):
         if self.speed > 0.000001:
             self.speed /= 2
+
+    def stop(self):
+        pass
 
     # move the camera forward
     def move_forward(self):
