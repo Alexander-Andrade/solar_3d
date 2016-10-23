@@ -24,6 +24,7 @@ class System:
         self.subsystems.append(subsystem)
 
     def update_state(self, time):
+        self.master.calc_rotation(time)
         for orbit in self.orbits:
             orbit.update_slave_position(time)
         for satellite in self.satellites:

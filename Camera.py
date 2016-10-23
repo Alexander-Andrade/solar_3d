@@ -101,7 +101,6 @@ class Camera:
     # move camera according states
     def move(self):
         for state in self.states:
-            print(state)
             self.camera_routes[state]()
 
     def add_state(self, state):

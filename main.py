@@ -77,7 +77,7 @@ class Application:
         self.window = None
 
         self.time = 2.552
-        self.time_speed = 0.1
+        self.time_speed = 0.5
         self.timer = Timer(10, True)
 
         self.solar_system = None
@@ -97,8 +97,8 @@ class Application:
 
     def init_solar_system(self):
         self.background_painter = BackgroundPainter('images/space4.jpg')
-        self.solar_system = System(Star(np.array([0., 0., 0.]), 0.3, 0.001, 'images/globes/sun.jpg'))
-        mars = Planet(np.array([0.2, 0.2, 0.2]), 0.03, 0.1, 'images/globes/mars.jpg')
+        self.solar_system = System(Star(np.array([0., 0., 0.]), 0.3, 0.1, 'images/globes/sun.jpg'))
+        mars = Planet(np.array([0.3, 0.3, 0.3]), 0.1, 0.1, 'images/globes/mars.jpg')
         self.solar_system.add_satellite(mars, 0.5, 4000)
 
     def start_timer(self):

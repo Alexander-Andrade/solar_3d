@@ -9,7 +9,7 @@ class PlanetPainter(Painter):
         self.texture = Texture2D(img_name)
 
     def draw(self):
-        # glPushMatrix()
+        glPushMatrix()
         glTranslatef(self.planet.center[0], self.planet.center[1], self.planet.center[2])
         glRotatef(self.planet.rotation, 0.0, 0.0, 1.0)
         self.texture.bind_texture()
@@ -18,7 +18,7 @@ class PlanetPainter(Painter):
         gluQuadricTexture(quadric, True)
         gluQuadricNormals(quadric, GLU_SMOOTH)
         gluSphere(quadric, self.planet.radius, 30, 30)
-        # glPopMatrix()
+        glPopMatrix()
 
 
 class StarPainter(Painter):
@@ -42,7 +42,7 @@ class StarPainter(Painter):
         self.point_light()
         # glPushMatrix()
         # glTranslatef(self.star.center[0], self.star.center[1], self.star.center[2])
-        glRotatef(self.star.rotation, 0.0, 0.0, 1.0)
+        #glRotatef(self.star.rotation, 0.0, 0.0, 1.0)
         self.texture.bind_texture()
         # render as a GLU shhere quadric object
         quadric = gluNewQuadric()
