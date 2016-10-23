@@ -45,7 +45,7 @@ class Window:
         # glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA)
 
     def __init_lightning(self):
-        # glEnable(GL_LIGHTING)
+        #glEnable(GL_LIGHTING)
         glMatrixMode(GL_MODELVIEW)
         glLoadIdentity()
 
@@ -96,7 +96,7 @@ class Application:
                              }
 
     def init_solar_system(self):
-        self.background_painter = BackgroundPainter('images/space3.jpg')
+        self.background_painter = BackgroundPainter('images/space1.jpg')
         self.solar_system = System(Star(np.array([0., 0., 0.]), 0.3, 0.001, 'images/globes/sun.jpg'))
         mars = Planet(np.array([0.2, 0.2, 0.2]), 0.03, 0.1, 'images/globes/mars.jpg')
         self.solar_system.add_satellite(mars, 0.5, 4000)
