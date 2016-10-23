@@ -15,6 +15,7 @@ import numpy as np
 class Window:
 
     def __init__(self, application, **kwargs):
+        self.win_size = (0, 0)
         self.application = application
         self.__init_window(**kwargs)
         self.__init_lightning()
@@ -39,22 +40,22 @@ class Window:
         glClearColor(0.0, 0.0, 0.0, 0.0)
         glShadeModel(GL_SMOOTH)
         glEnable(GL_TEXTURE_2D)
-        glEnable(GL_DEPTH_TEST)
+        #glEnable(GL_DEPTH_TEST)
         # glEnable(GL_BLEND)
         # glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA)
 
     def __init_lightning(self):
-        glEnable(GL_LIGHTING)
+        # glEnable(GL_LIGHTING)
         glMatrixMode(GL_MODELVIEW)
         glLoadIdentity()
 
-        mat_specular = np.array([1.0, 1.0, 1.0, 1.0])
-        mat_ambience = np.array([0.3, 0.3, 0.3, 1.0])
-        mat_shininess = np.array([20.0])
-
-        glMaterialfv(GL_FRONT, GL_SPECULAR, mat_specular)
-        glMaterialfv(GL_FRONT, GL_SHININESS, mat_shininess)
-        glMaterialfv(GL_FRONT, GL_AMBIENT, mat_ambience)
+        # mat_specular = np.array([1.0, 1.0, 1.0, 1.0])
+        # mat_ambience = np.array([0.3, 0.3, 0.3, 1.0])
+        # mat_shininess = np.array([20.0])
+        #
+        # glMaterialfv(GL_FRONT, GL_SPECULAR, mat_specular)
+        # glMaterialfv(GL_FRONT, GL_SHININESS, mat_shininess)
+        # glMaterialfv(GL_FRONT, GL_AMBIENT, mat_ambience)
 
     def __register_event_handlers(self):
         glutDisplayFunc(self.application.display)
@@ -95,7 +96,7 @@ class Application:
                              }
 
     def init_solar_system(self):
-        self.background_painter = BackgroundPainter('images/space2.jpg')
+        self.background_painter = BackgroundPainter('images/space3.jpg')
         self.solar_system = System(Star(np.array([0., 0., 0.]), 0.3, 0.001, 'images/globes/sun.jpg'))
         mars = Planet(np.array([0.2, 0.2, 0.2]), 0.03, 0.1, 'images/globes/mars.jpg')
         self.solar_system.add_satellite(mars, 0.5, 4000)
@@ -115,15 +116,16 @@ class Application:
         # set up the perspective matrix for rendering the 3d world
         glMatrixMode(GL_PROJECTION)
         glLoadIdentity()
-        gluPerspective(70.0, self.window.width()/self.window.height(),0.001, 500.0)
+        gluPerspective(70.0, self.window.width()/self.window.height(), 0.001, 5000.0)
         glMatrixMode(GL_MODELVIEW)
         glLoadIdentity()
         # perform the camera orientation transform
         self.camera.transform_orientation()
-        self.camera.transform_translation()
+
         # draw the skybox
         self.background_painter.draw()
-        self.solar_system.draw()
+        self.camera.transform_translation()
+        # self.solar_system.draw()
 
         glFlush()
         glutSwapBuffers()

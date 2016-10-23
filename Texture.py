@@ -12,6 +12,7 @@ class Texture2D:
         self.width, self.height, self.bytes_per_pix = self.image.shape
         self.image = np.reshape(self.image, (self.width*self.height, self.bytes_per_pix))
         self.img_format = self.__get_gl_img_format(image_name)
+
         self.texture = glGenTextures(1)
         glBindTexture(GL_TEXTURE_2D, self.texture)
         glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_MODULATE)

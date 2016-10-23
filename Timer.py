@@ -37,7 +37,6 @@ class Timer:
         self.ms_duration = ms_duration
         self.start(self.on_timer)
 
-
     def stop(self):
         self.is_started = False
 
