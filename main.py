@@ -84,8 +84,13 @@ class Application:
         self.solar_system = None
         self.background_painter = BackgroundPainter('images/space2.jpg')
         self.camera = Camera()
+        self.key_down_controls = {'w' : Camera.CameraState.Forward,
+                                  'a' : Camera.CameraState.Left,
+                                  'd' : Camera.CameraState.Forward
+                                  }
 
-    def __init_solar_system(self):
+
+    def init_solar_system(self):
         self.solar_system = System(Star(np.array([0., 0., 0.]), 0.3, 0.001, 'images/globes/sun.jpg'))
         mars = Planet(np.array([0.2, 0.2, 0.2]), 0.03, 0.1, 'images/globes/mars.jpg')
         self.solar_system.add_satellite(mars, 0.5, 4000)
@@ -119,11 +124,11 @@ class Application:
         glutSwapBuffers()
 
     def key_down(self, key, x, y):
-        print("down: {}, {}, {}".format(key, x, y))
+        state = self.key_down_controls[key]
+        self.camera.set_state(state)
 
     def key_up(self, key, x, y):
-        print("up: {}, {}, {}".format(key, x, y))
-
+        self.camera.set_state(Camera.CameraState.Stop)
 
 
 if __name__ == "__main__":
