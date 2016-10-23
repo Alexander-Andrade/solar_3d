@@ -6,6 +6,9 @@ from System import System
 from Camera import Camera
 from Timer import Timer
 from BackgroundPainter import BackgroundPainter
+from Star import Star
+from Planet import Planet
+from Orbit import Orbit
 import numpy as np
 
 
@@ -47,7 +50,7 @@ class Window:
         glLoadIdentity()
 
         mat_specular = np.array([1.0, 1.0, 1.0, 1.0])
-        mat_ambience = np.array([ 0.3, 0.3, 0.3, 1.0])
+        mat_ambience = np.array([0.3, 0.3, 0.3, 1.0])
         mat_shininess = np.array([20.0])
 
         glMaterialfv(GL_FRONT, GL_SPECULAR, mat_specular)
@@ -78,12 +81,14 @@ class Application:
         self.time_speed = 0.1
         self.timer = Timer(10, True)
 
-        self.solar_system = System()
-        self.background_painter = BackgroundPainter('path_to_background')
+        self.solar_system = None
+        self.background_painter = BackgroundPainter('images/space2.jpg')
         self.camera = Camera()
 
     def __init_solar_system(self):
-        pass
+        self.solar_system = System(Star(np.array([0., 0., 0.]), 0.3, 0.001, 'images/globes/sun.jpg'))
+        mars = Planet(np.array([0.2, 0.2, 0.2]), 0.03, 0.1, 'images/globes/mars.jpg')
+        self.solar_system.add_satellite(mars, 0.5, 4000)
 
     def start_timer(self):
         self.timer.start(self.on_timer)
@@ -94,9 +99,6 @@ class Application:
         self.time += self.time_speed
         self.solar_system.update_state(self.time)
         glutPostRedisplay()
-
-    def create_shapes(self):
-        pass
 
     def display(self):
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT)
