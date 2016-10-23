@@ -85,12 +85,12 @@ class Application:
         self.camera = Camera()
         self.key_controls = {b'w': Camera.CameraState.Forward,
                              b'a': Camera.CameraState.Left,
-                             b'd': Camera.CameraState.Forward,
+                             b'd': Camera.CameraState.Right,
                              b's': Camera.CameraState.Backward,
                              b'l': Camera.CameraState.RollRight,
                              b'j': Camera.CameraState.RollLeft,
-                             b'i': Camera.CameraState.RollRight,
-                             b'k': Camera.CameraState.RollRight,
+                             b'i': Camera.CameraState.PitchDown,
+                             b'k': Camera.CameraState.PitchUp,
                              b'q': Camera.CameraState.YawLeft,
                              b'e': Camera.CameraState.YawRight,
                              }
@@ -144,23 +144,6 @@ class Application:
         except KeyError as e:
             print(e)
 
-from enum import Enum, unique
-@unique
-class CameraState(Enum):
-    Forward = 1
-    Backward = 2
-    Left = 3
-    Right = 4
-    YawLeft = 5
-    YawRight = 6
-    PitchUp = 7
-    PitchDown = 8
-    RollLeft = 9
-    RollRight = 10
-    Stop = 11
-
-def fu():
-    print("hello")
 
 if __name__ == "__main__":
     glutInit(sys.argv)
@@ -169,7 +152,6 @@ if __name__ == "__main__":
     app.window = window
     app.init_solar_system()
     app.start_timer()
-    app.camera.camera_routes[Camera.CameraState.Forward]()
     window.main_loop()
 
 
