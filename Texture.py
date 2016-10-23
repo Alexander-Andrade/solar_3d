@@ -16,7 +16,7 @@ class Texture2D:
         glBindTexture(GL_TEXTURE_2D, self.texture)
         glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_MODULATE)
 
-        glTexParameterf(GL_TEXTURE_2D. GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_NEAREST)
+        glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_NEAREST)
         glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR)
 
         glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT)
@@ -31,7 +31,7 @@ class Texture2D:
             return GL_RGBA
 
     def bind_texture(self):
-        glBindTexture(self.GL_TEXTURE_2D, self.texture)
+        glBindTexture(GL_TEXTURE_2D, self.texture)
 
     def get_width(self):
         return self.width

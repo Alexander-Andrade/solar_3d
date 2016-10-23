@@ -28,7 +28,6 @@ class Window:
         glutInitWindowSize(win_size[0], win_size[1])
         glutInitWindowPosition(win_pos[0], win_pos[1])
         glutCreateWindow(title)
-        print(glutGet(GLUT_SCREEN_WIDTH))
 
     def width(self):
         return self.win_size[0]
@@ -59,7 +58,7 @@ class Window:
 
     def __register_event_handlers(self):
         glutDisplayFunc(self.application.display)
-        glutReshapeFunc(Window.reshape)
+        glutReshapeFunc(self.reshape)
         glutKeyboardFunc(self.application.key_down)
         glutKeyboardUpFunc(self.application.key_up)
 
@@ -67,8 +66,7 @@ class Window:
         glutMainLoop()
 
     def reshape(self, w, h):
-        self.win_size[0] = w
-        self.win_size[1] = h
+        self.win_size = w, h
         glViewport(0, 0, w, h)
 
 
@@ -82,15 +80,22 @@ class Application:
         self.timer = Timer(10, True)
 
         self.solar_system = None
-        self.background_painter = BackgroundPainter('images/space2.jpg')
+        self.background_painter = None
         self.camera = Camera()
-        self.key_down_controls = {'w' : Camera.CameraState.Forward,
-                                  'a' : Camera.CameraState.Left,
-                                  'd' : Camera.CameraState.Forward
-                                  }
-
+        self.key_controls = {b'w': Camera.CameraState.Forward,
+                             b'a': Camera.CameraState.Left,
+                             b'd': Camera.CameraState.Forward,
+                             b's': Camera.CameraState.Backward,
+                             b'l': Camera.CameraState.RollRight,
+                             b'j': Camera.CameraState.RollLeft,
+                             b'i': Camera.CameraState.RollRight,
+                             b'k': Camera.CameraState.RollRight,
+                             b'q': Camera.CameraState.YawLeft,
+                             b'e': Camera.CameraState.YawRight,
+                             }
 
     def init_solar_system(self):
+        self.background_painter = BackgroundPainter('images/space2.jpg')
         self.solar_system = System(Star(np.array([0., 0., 0.]), 0.3, 0.001, 'images/globes/sun.jpg'))
         mars = Planet(np.array([0.2, 0.2, 0.2]), 0.03, 0.1, 'images/globes/mars.jpg')
         self.solar_system.add_satellite(mars, 0.5, 4000)
@@ -124,11 +129,18 @@ class Application:
         glutSwapBuffers()
 
     def key_down(self, key, x, y):
-        state = self.key_down_controls[key]
-        self.camera.set_state(state)
+        try:
+            state = self.key_controls[key]
+            self.camera.add_state(state)
+        except KeyError as e:
+            print(e)
 
     def key_up(self, key, x, y):
-        self.camera.set_state(Camera.CameraState.Stop)
+        try:
+            state = self.key_controls[key]
+            self.camera.del_state(state)
+        except KeyError as e:
+            print(e)
 
 
 if __name__ == "__main__":
@@ -136,6 +148,7 @@ if __name__ == "__main__":
     app = Application()
     window = Window(app)
     app.window = window
+    app.init_solar_system()
     window.main_loop()
 
 

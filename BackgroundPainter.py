@@ -40,4 +40,5 @@ class BackgroundPainter(Painter):
         glTexCoord2f(1.0, 0.0);	glVertex3f(1.0, -1.0, -1.0);
         glTexCoord2f(1.0, 1.0);	glVertex3f(1.0, -1.0, 1.0);
         glTexCoord2f(0.0, 1.0);	glVertex3f(-1.0, -1.0, 1.0);
+        glEnd()
 

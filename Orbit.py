@@ -1,4 +1,5 @@
 from Shape import Shape
+from OrbitPainter import OrbitPainter
 import numpy as np
 import math
 
@@ -11,6 +12,7 @@ class Orbit(Shape):
         self.orbit_time = orbit_time
         self.master_shape = master_shape
         self.slave_shape = slave_shape
+        self.painter = OrbitPainter(self)
 
     # Calculate its position in 3d spacein the orbit using the given time value
     def update_slave_position(self, time):

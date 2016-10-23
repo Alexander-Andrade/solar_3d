@@ -80,7 +80,7 @@ class Camera:
         # the camera speed
         self.speed = 0.005
         self.turn_speed = 0.01
-        self.state = Camera.CameraState.Stop
+        self.states = set()
         self.camera_routes = dict()
 
     def __init_camera_routes(self):
@@ -97,12 +97,16 @@ class Camera:
                                    Camera.CameraState.Stop: self.stop
                                    })
 
-    def set_state(self, state):
-        self.state = state
-
-    # move camera according
+    # move camera according states
     def move(self):
-        self.camera_routes[self.state]()
+        for state in self.states:
+            self.camera_routes[state]()
+
+    def add_state(self, state):
+        self.states.add(state)
+
+    def del_state(self, state):
+        self.states.discard(state)
 
     # transform the opengl view matrix for the orientation
     def transform_orientation(self):

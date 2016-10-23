@@ -1,5 +1,5 @@
 from Globe import Globe
-from Painter import StarPainter
+from GlobePainters import StarPainter
 
 class Star(Globe):
 
