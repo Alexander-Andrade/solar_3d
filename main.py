@@ -45,17 +45,17 @@ class Window:
         # glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA)
 
     def __init_lightning(self):
-        #glEnable(GL_LIGHTING)
+        glEnable(GL_LIGHTING)
         glMatrixMode(GL_MODELVIEW)
         glLoadIdentity()
 
-        # mat_specular = np.array([1.0, 1.0, 1.0, 1.0])
-        # mat_ambience = np.array([0.3, 0.3, 0.3, 1.0])
-        # mat_shininess = np.array([20.0])
-        #
-        # glMaterialfv(GL_FRONT, GL_SPECULAR, mat_specular)
-        # glMaterialfv(GL_FRONT, GL_SHININESS, mat_shininess)
-        # glMaterialfv(GL_FRONT, GL_AMBIENT, mat_ambience)
+        mat_specular = np.array([1.0, 1.0, 1.0, 1.0])
+        mat_ambience = np.array([0.3, 0.3, 0.3, 1.0])
+        mat_shininess = np.array([20.0])
+
+        glMaterialfv(GL_FRONT, GL_SPECULAR, mat_specular)
+        glMaterialfv(GL_FRONT, GL_SHININESS, mat_shininess)
+        glMaterialfv(GL_FRONT, GL_AMBIENT, mat_ambience)
 
     def __register_event_handlers(self):
         glutDisplayFunc(self.application.display)
@@ -96,16 +96,16 @@ class Application:
                              }
 
     def init_solar_system(self):
-        self.background_painter = BackgroundPainter('images/space1.jpg')
+        self.background_painter = BackgroundPainter('images/space4.jpg')
         self.solar_system = System(Star(np.array([0., 0., 0.]), 0.3, 0.001, 'images/globes/sun.jpg'))
         mars = Planet(np.array([0.2, 0.2, 0.2]), 0.03, 0.1, 'images/globes/mars.jpg')
         self.solar_system.add_satellite(mars, 0.5, 4000)
 
     def start_timer(self):
         self.timer.start(self.on_timer)
-        self.camera.move()
 
     def on_timer(self):
+        self.camera.move()
         # update the logic and simulation
         self.time += self.time_speed
         self.solar_system.update_state(self.time)
@@ -125,7 +125,7 @@ class Application:
         # draw the skybox
         self.background_painter.draw()
         self.camera.transform_translation()
-        # self.solar_system.draw()
+        self.solar_system.draw()
 
         glFlush()
         glutSwapBuffers()
@@ -144,6 +144,23 @@ class Application:
         except KeyError as e:
             print(e)
 
+from enum import Enum, unique
+@unique
+class CameraState(Enum):
+    Forward = 1
+    Backward = 2
+    Left = 3
+    Right = 4
+    YawLeft = 5
+    YawRight = 6
+    PitchUp = 7
+    PitchDown = 8
+    RollLeft = 9
+    RollRight = 10
+    Stop = 11
+
+def fu():
+    print("hello")
 
 if __name__ == "__main__":
     glutInit(sys.argv)
@@ -151,6 +168,8 @@ if __name__ == "__main__":
     window = Window(app)
     app.window = window
     app.init_solar_system()
+    app.start_timer()
+    app.camera.camera_routes[Camera.CameraState.Forward]()
     window.main_loop()
 
 

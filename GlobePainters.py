@@ -10,7 +10,7 @@ class PlanetPainter(Painter):
 
     def draw(self):
         # glPushMatrix()
-        # glTranslatef(self.planet.center[0], self.planet.center[1], self.planet.center[2])
+        glTranslatef(self.planet.center[0], self.planet.center[1], self.planet.center[2])
         glRotatef(self.planet.rotation, 0.0, 0.0, 1.0)
         self.texture.bind_texture()
         # render as a GLU shhere quadric object

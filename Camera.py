@@ -78,10 +78,11 @@ class Camera:
         # a vector describing the position of the camera
         self.pos_vec = np.array([0.764331460, -1.66760659, 0.642456770])
         # the camera speed
-        self.speed = 0.005
+        self.speed = 0.05
         self.turn_speed = 0.01
         self.states = set()
         self.camera_routes = dict()
+        self.__init_camera_routes()
 
     def __init_camera_routes(self):
         self.camera_routes.update({Camera.CameraState.Forward: self.move_forward,
@@ -100,6 +101,7 @@ class Camera:
     # move camera according states
     def move(self):
         for state in self.states:
+            print(state)
             self.camera_routes[state]()
 
     def add_state(self, state):
