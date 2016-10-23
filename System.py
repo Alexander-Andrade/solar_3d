@@ -20,8 +20,10 @@ class System:
         orbit = Orbit(self.master, satellite, orbit_radius, orbit_time)
         self.orbits.append(orbit)
 
-    def append_subsystem(self, subsystem):
+    def append_subsystem(self, subsystem, orbit_radius, orbit_time):
         self.subsystems.append(subsystem)
+        orbit = Orbit(self.master, subsystem.master, orbit_radius, orbit_time)
+        self.orbits.append(orbit)
 
     def update_state(self, time):
         self.master.calc_rotation(time)
@@ -30,7 +32,7 @@ class System:
         for satellite in self.satellites:
             satellite.calc_rotation(time)
         for subsystem in self.subsystems:
-            subsystem.update_state()
+            subsystem.update_state(time)
 
     def draw(self):
         self.painter.draw()

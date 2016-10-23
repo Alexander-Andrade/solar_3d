@@ -32,7 +32,6 @@ class StarPainter(Painter):
         glLightfv(self.light, GL_AMBIENT, (0.3, 0.3, 0.3, 1.0))
         glLightfv(self.light, GL_DIFFUSE, (1.0, 1.0, 1.0, 1.0))
         glLightfv(self.light, GL_SPECULAR, (1.0, 1.0, 1.0, 1.0))
-        #glLightfv(self.light, GL_POSITION, (self.star.center[0], self.star.center[1], self.star.center[2], 1.0))
         glLightfv(self.light, GL_POSITION, (0.0, 0.0, 0.0, 1.0))
         glLightf(self.light, GL_CONSTANT_ATTENUATION, 0.0)
         glLightf(self.light, GL_LINEAR_ATTENUATION, 0.2)
@@ -40,8 +39,8 @@ class StarPainter(Painter):
 
     def draw(self):
         self.point_light()
-        # glPushMatrix()
-        # glTranslatef(self.star.center[0], self.star.center[1], self.star.center[2])
+        glPushMatrix()
+        glTranslatef(self.star.center[0], self.star.center[1], self.star.center[2])
         #glRotatef(self.star.rotation, 0.0, 0.0, 1.0)
         self.texture.bind_texture()
         # render as a GLU shhere quadric object
@@ -49,4 +48,4 @@ class StarPainter(Painter):
         gluQuadricTexture(quadric, True)
         gluQuadricNormals(quadric, GLU_SMOOTH)
         gluSphere(quadric, self.star.radius, 30, 30)
-        # glPopMatrix()
+        glPopMatrix()
