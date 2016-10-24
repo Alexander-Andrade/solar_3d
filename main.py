@@ -10,7 +10,7 @@ from Star import Star
 from Planet import Planet
 from Orbit import Orbit
 import numpy as np
-
+import pyassimp as assimp
 
 class Window:
 
@@ -152,12 +152,16 @@ class Application:
 
 if __name__ == "__main__":
     glutInit(sys.argv)
-    app = Application()
-    window = Window(app)
-    app.window = window
-    app.init_solar_system()
-    app.start_timer()
-    window.main_loop()
+    falcon = assimp.load('models/star_wars_falcon/star_wars_falcon.3ds')
+    print(len(falcon.meshes))
+    print(len(falcon.mesh[0].vertices))
+    print(falcon.mesh[0].vertices)
+    # app = Application()
+    # window = Window(app)
+    # app.window = window
+    # app.init_solar_system()
+    # app.start_timer()
+    # window.main_loop()
 
 
 
