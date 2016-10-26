@@ -109,7 +109,7 @@ class Application:
         earth_subsystem = System(earth)
         moon = Planet(np.array([0., 0., 0.]), 0.01, 0.1, 'images/globes/moon.jpg')
         earth_subsystem.add_satellite(moon, 0.1, 200)
-        self.solar_system.append_subsystem(earth_subsystem, 0.6, 900, 2.3)
+        self.solar_system.append_subsystem(earth_subsystem, 2.0, 900, 2.3)
 
     def start_timer(self):
         self.timer.start(self.on_timer)
