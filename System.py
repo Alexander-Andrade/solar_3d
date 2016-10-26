@@ -15,14 +15,14 @@ class System:
     def set_master(self, master):
         self.master = master
 
-    def add_satellite(self, satellite, orbit_radius, orbit_time):
+    def add_satellite(self, satellite, orbit_radius, orbit_time, init_orbit_angle=0.0):
         self.satellites.append(satellite)
-        orbit = Orbit(self.master, satellite, orbit_radius, orbit_time)
+        orbit = Orbit(self.master, satellite, orbit_radius, orbit_time, init_orbit_angle)
         self.orbits.append(orbit)
 
-    def append_subsystem(self, subsystem, orbit_radius, orbit_time):
+    def append_subsystem(self, subsystem, orbit_radius, orbit_time, init_orbit_angle=0.0):
         self.subsystems.append(subsystem)
-        orbit = Orbit(self.master, subsystem.master, orbit_radius, orbit_time)
+        orbit = Orbit(self.master, subsystem.master, orbit_radius, orbit_time, init_orbit_angle)
         self.orbits.append(orbit)
 
     def update_state(self, time):

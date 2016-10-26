@@ -6,8 +6,9 @@ import math
 
 class Orbit(Shape):
 
-    def __init__(self, master_shape, slave_shape, radius, orbit_time):
+    def __init__(self, master_shape, slave_shape, radius, orbit_time, init_angle=0.0):
         self.radius = radius
+        self.angle = init_angle
         # time it takes to complete 1 orbit
         self.orbit_time = orbit_time
         self.master_shape = master_shape
@@ -16,10 +17,12 @@ class Orbit(Shape):
 
     # Calculate its position in 3d spacein the orbit using the given time value
     def update_slave_position(self, time):
-        angle = time*math.pi/self.orbit_time
+        if self.angle > 2 *math.pi:
+            self.angle -= 2 *math.pi
+        self.angle = time*math.pi/self.orbit_time
         slave_center = np.zeros(3)
-        slave_center[0] = math.sin(angle)*self.radius
-        slave_center[1] = math.cos(angle)*self.radius
+        slave_center[0] = math.sin(self.angle)*self.radius
+        slave_center[1] = math.cos(self.angle)*self.radius
         slave_center[2] = 0
         self.slave_shape.set_gravitycenter(slave_center)
 

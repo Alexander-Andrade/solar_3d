@@ -11,7 +11,7 @@ from Planet import Planet
 from Orbit import Orbit
 import numpy as np
 import pyassimp as assimp
-
+# import pyglet
 class Window:
 
     def __init__(self, application, **kwargs):
@@ -98,14 +98,18 @@ class Application:
         self.background_painter = BackgroundPainter('images/space5.png')
 
         self.solar_system = System(Star(np.array([0., 0., 0.]), 0.3, 0.1, 'images/globes/sun.jpg'))
-        mercury = Planet(np.array([0., 0., 0.]), 0.06, 0.1, 'images/globes/mercury.jpg')
-        self.solar_system.add_satellite(mercury, 0.5, 4000)
 
-        # earth = Planet(np.array([0., 0., 0.]), 0.09, 0.1, 'images/globes/earth.jpg')
-        # earth_subsystem = System(earth)
-        # moon = Planet(np.array([0., 0., 0.]), 0.005, 0.1, 'images/globes/moon.jpg')
-        # earth_subsystem.add_satellite(moon, 0.1, 200)
-        # self.solar_system.append_subsystem(earth_subsystem, 0.6, 5000)
+        mercury = Planet(np.array([0., 0., 0.]), 0.03, 0.1, 'images/globes/mercury.jpg')
+        self.solar_system.add_satellite(mercury, 0.5, 400, 1.1)
+
+        venus = Planet(np.array([0., 0., 0.]), 0.06, 0.1, 'images/globes/venus.jpg')
+        self.solar_system.add_satellite(venus, 1.1, 600, 0.5)
+
+        earth = Planet(np.array([0., 0., 0.]), 0.06, 0.1, 'images/globes/earth.jpg')
+        earth_subsystem = System(earth)
+        moon = Planet(np.array([0., 0., 0.]), 0.01, 0.1, 'images/globes/moon.jpg')
+        earth_subsystem.add_satellite(moon, 0.1, 200)
+        self.solar_system.append_subsystem(earth_subsystem, 0.6, 900, 2.3)
 
     def start_timer(self):
         self.timer.start(self.on_timer)
@@ -131,7 +135,6 @@ class Application:
         # draw the skybox
         self.background_painter.draw()
         self.camera.transform_translation()
-
         glEnable(GL_DEPTH_TEST) # use z-test only for models not for skybox
         self.solar_system.draw()
         glDisable(GL_DEPTH_TEST)
@@ -166,6 +169,5 @@ if __name__ == "__main__":
     app.init_solar_system()
     app.start_timer()
     window.main_loop()
-
 
 
