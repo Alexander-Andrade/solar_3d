@@ -9,6 +9,7 @@ class PlanetPainter(Painter):
         self.texture = Texture2D(img_name)
 
     def draw(self):
+        glEnable(GL_TEXTURE_2D)
         glPushMatrix()
         glTranslatef(self.planet.center[0], self.planet.center[1], self.planet.center[2])
         glRotatef(self.planet.rotation, 0.0, 0.0, 1.0)
@@ -19,6 +20,7 @@ class PlanetPainter(Painter):
         gluQuadricNormals(quadric, GLU_SMOOTH)
         gluSphere(quadric, self.planet.radius, 30, 30)
         glPopMatrix()
+        glDisable(GL_TEXTURE_2D)
 
 
 class StarPainter(Painter):
@@ -38,6 +40,7 @@ class StarPainter(Painter):
         glLightf(self.light, GL_QUADRATIC_ATTENUATION, 0.2)
 
     def draw(self):
+        glEnable(GL_TEXTURE_2D)
         self.point_light()
         glPushMatrix()
         glTranslatef(self.star.center[0], self.star.center[1], self.star.center[2])
@@ -49,3 +52,4 @@ class StarPainter(Painter):
         gluQuadricNormals(quadric, GLU_SMOOTH)
         gluSphere(quadric, self.star.radius, 30, 30)
         glPopMatrix()
+        glDisable(GL_TEXTURE_2D)

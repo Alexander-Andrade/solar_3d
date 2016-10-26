@@ -8,9 +8,8 @@ from Timer import Timer
 from BackgroundPainter import BackgroundPainter
 from Star import Star
 from Planet import Planet
-from Orbit import Orbit
 import numpy as np
-import pyassimp as assimp
+# import pyassimp as assimp
 # import pyglet
 class Window:
 
@@ -39,7 +38,6 @@ class Window:
     def __gl_init(self):
         glClearColor(0.0, 0.0, 0.0, 0.0)
         glShadeModel(GL_SMOOTH)
-        glEnable(GL_TEXTURE_2D)
         # glEnable(GL_BLEND)
         # glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA)
 
@@ -110,6 +108,9 @@ class Application:
         moon = Planet(np.array([0., 0., 0.]), 0.01, 0.1, 'images/globes/moon.jpg')
         earth_subsystem.add_satellite(moon, 0.1, 200)
         self.solar_system.append_subsystem(earth_subsystem, 2.0, 900, 2.3)
+
+        mars = Planet(np.array([0., 0., 0.]), 0.04, 0.1, 'images/globes/mars.jpg')
+        self.solar_system.add_satellite(mars, 2.7, 1200, 3.1)
 
     def start_timer(self):
         self.timer.start(self.on_timer)

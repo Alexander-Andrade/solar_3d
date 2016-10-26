@@ -8,6 +8,7 @@ class BackgroundPainter(Painter):
         self.texture = Texture2D(img_name)
 
     def draw(self):
+        glEnable(GL_TEXTURE_2D)
         self.texture.bind_texture()
         glBegin(GL_QUADS)
         # new face
@@ -41,4 +42,5 @@ class BackgroundPainter(Painter):
         glTexCoord2f(1.0, 1.0);	glVertex3f(1.0, -1.0, 1.0);
         glTexCoord2f(0.0, 1.0);	glVertex3f(-1.0, -1.0, 1.0);
         glEnd()
+        glDisable(GL_TEXTURE_2D)
 
