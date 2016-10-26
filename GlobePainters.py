@@ -22,6 +22,25 @@ class PlanetPainter(Painter):
         glPopMatrix()
         glDisable(GL_TEXTURE_2D)
 
+class RingedPlanetPainter(Painter):
+
+    def __init__(self, planet, img_name):
+        self.planet = planet
+        self.texture = Texture2D(img_name)
+
+    def draw(self):
+        glEnable(GL_TEXTURE_2D)
+        glPushMatrix()
+        glTranslatef(self.planet.center[0], self.planet.center[1], self.planet.center[2])
+        glRotatef(self.planet.rotation, 0.0, 0.0, 1.0)
+        self.texture.bind_texture()
+        # render as a GLU shhere quadric object
+        quadric = gluNewQuadric()
+        gluQuadricTexture(quadric, True)
+        gluQuadricNormals(quadric, GLU_SMOOTH)
+        gluSphere(quadric, self.planet.radius, 30, 30)
+        glPopMatrix()
+        glDisable(GL_TEXTURE_2D)
 
 class StarPainter(Painter):
     def __init__(self, star, img_name, light=GL_LIGHT0):

@@ -47,8 +47,8 @@ class Window:
         glLoadIdentity()
 
         mat_specular = np.array([1.0, 1.0, 1.0, 1.0])
-        mat_ambience = np.array([0.3, 0.3, 0.3, 1.0])
-        mat_shininess = np.array([20.0])
+        mat_ambience = np.array([0.6, 0.6, 0.6, 1.0])
+        mat_shininess = np.array([40.0])
 
         glMaterialfv(GL_FRONT, GL_SPECULAR, mat_specular)
         glMaterialfv(GL_FRONT, GL_SHININESS, mat_shininess)
@@ -95,22 +95,31 @@ class Application:
     def init_solar_system(self):
         self.background_painter = BackgroundPainter('images/space5.png')
 
-        self.solar_system = System(Star(np.array([0., 0., 0.]), 0.3, 0.1, 'images/globes/sun.jpg'))
+        self.solar_system = System(Star(np.array([0., 0., 0.]), 0.6, 0.1, 'images/globes/sun.jpg'))
 
         mercury = Planet(np.array([0., 0., 0.]), 0.03, 0.1, 'images/globes/mercury.jpg')
-        self.solar_system.add_satellite(mercury, 0.5, 400, 1.1)
+        self.solar_system.add_satellite(mercury, 0.7, 400, 1.1)
 
         venus = Planet(np.array([0., 0., 0.]), 0.06, 0.1, 'images/globes/venus.jpg')
-        self.solar_system.add_satellite(venus, 1.1, 600, 0.5)
+        self.solar_system.add_satellite(venus, 1.3, 600, 0.5)
 
         earth = Planet(np.array([0., 0., 0.]), 0.06, 0.1, 'images/globes/earth.jpg')
         earth_subsystem = System(earth)
         moon = Planet(np.array([0., 0., 0.]), 0.01, 0.1, 'images/globes/moon.jpg')
         earth_subsystem.add_satellite(moon, 0.1, 200)
-        self.solar_system.append_subsystem(earth_subsystem, 2.0, 900, 2.3)
+        self.solar_system.append_subsystem(earth_subsystem, 2.3, 900, 2.3)
 
         mars = Planet(np.array([0., 0., 0.]), 0.04, 0.1, 'images/globes/mars.jpg')
-        self.solar_system.add_satellite(mars, 2.7, 1200, 3.1)
+        self.solar_system.add_satellite(mars, 3.0, 1200, 3.1)
+
+        upiter = Planet(np.array([0., 0., 0.]), 0.2, 0.1, 'images/globes/upiter.jpg')
+        self.solar_system.add_satellite(upiter, 6.0, 6000, 1.3)
+
+        saturn = Planet(np.array([0., 0., 0.]), 0.19, 0.1, 'images/globes/saturn.jpg')
+        self.solar_system.add_satellite(saturn, 7.0, 6500, 3.4)
+
+        neptune = Planet(np.array([0., 0., 0.]), 0.19, 0.1, 'images/globes/neptune.jpg')
+        self.solar_system.add_satellite(neptune, 8.2, 8000, 2.624)
 
     def start_timer(self):
         self.timer.start(self.on_timer)

@@ -3,3 +3,6 @@ PyOpenGL
 PyOpenGL_accelerate
 opencv-python
 numpy
+Pillow
+pyassimp
+pyglet
