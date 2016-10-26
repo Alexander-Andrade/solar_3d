@@ -8,7 +8,7 @@ class OrbitPainter(Painter):
         self.orbit = orbit
 
     def draw(self):
-        glBegin(GL_LINE_STRIP)
+        glBegin(GL_POINTS)
         # loop round from 0 to 2*PI and draw around the radius of the orbit using trigonometry
         angle = 0.0
         while angle < 6.283185307:
