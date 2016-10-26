@@ -95,15 +95,17 @@ class Application:
                              }
 
     def init_solar_system(self):
-        self.background_painter = BackgroundPainter('images/space4.jpg')
+        self.background_painter = BackgroundPainter('images/space5.png')
+
         self.solar_system = System(Star(np.array([0., 0., 0.]), 0.3, 0.1, 'images/globes/sun.jpg'))
-        mars = Planet(np.array([0., 0., 0.]), 0.09, 0.1, 'images/globes/mars.jpg')
-        self.solar_system.add_satellite(mars, 0.5, 4000)
-        earth = Planet(np.array([0., 0., 0.]), 0.09, 0.1, 'images/globes/earth.jpg')
-        earth_subsystem = System(earth)
-        moon = Planet(np.array([0., 0., 0.]), 0.005, 0.1, 'images/globes/moon.jpg')
-        earth_subsystem.add_satellite(moon, 0.03, 2000)
-        self.solar_system.append_subsystem(earth_subsystem, 0.6, 5000)
+        mercury = Planet(np.array([0., 0., 0.]), 0.06, 0.1, 'images/globes/mercury.jpg')
+        self.solar_system.add_satellite(mercury, 0.5, 4000)
+
+        # earth = Planet(np.array([0., 0., 0.]), 0.09, 0.1, 'images/globes/earth.jpg')
+        # earth_subsystem = System(earth)
+        # moon = Planet(np.array([0., 0., 0.]), 0.005, 0.1, 'images/globes/moon.jpg')
+        # earth_subsystem.add_satellite(moon, 0.1, 200)
+        # self.solar_system.append_subsystem(earth_subsystem, 0.6, 5000)
 
     def start_timer(self):
         self.timer.start(self.on_timer)

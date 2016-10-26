@@ -67,9 +67,10 @@ class Texture2D:
         gluBuild2DMipmaps(GL_TEXTURE_2D, self.im_format, self.width(), self.height(), self.im_format, GL_UNSIGNED_BYTE, self.img_data)
 
     def __get_gl_img_format(self, image_name):
+        bytes_per_pixel = len(self.img_data[0])
         if image_name.lower().endswith('jpg'):
             return GL_RGB
-        elif image_name.lower().endswith('png'):
+        elif image_name.lower().endswith('png') and bytes_per_pixel == 4:
             return GL_RGBA
         else:
             return GL_RGB
