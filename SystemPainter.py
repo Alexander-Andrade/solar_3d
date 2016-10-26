@@ -16,9 +16,9 @@ class SystemPainter(Painter):
         self.translate_to_sys_coords()
         for subsystem in self.system.subsystems:
             subsystem.draw()
-        for satellite in self.system.satellites:
-            satellite.draw()
         for orbit in self.system.orbits:
             orbit.draw()
-        self.system.master.draw()
+        for satellite in self.system.satellites:
+            satellite.draw()
         glPopMatrix()
+        self.system.master.draw()

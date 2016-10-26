@@ -40,7 +40,6 @@ class Window:
         glClearColor(0.0, 0.0, 0.0, 0.0)
         glShadeModel(GL_SMOOTH)
         glEnable(GL_TEXTURE_2D)
-        #glEnable(GL_DEPTH_TEST)
         # glEnable(GL_BLEND)
         # glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA)
 
@@ -130,7 +129,10 @@ class Application:
         # draw the skybox
         self.background_painter.draw()
         self.camera.transform_translation()
+
+        glEnable(GL_DEPTH_TEST) # use z-test only for models not for skybox
         self.solar_system.draw()
+        glDisable(GL_DEPTH_TEST)
 
         glFlush()
         glutSwapBuffers()
@@ -152,16 +154,16 @@ class Application:
 
 if __name__ == "__main__":
     glutInit(sys.argv)
-    falcon = assimp.load('models/star_wars_falcon/star_wars_falcon.3ds')
-    print(len(falcon.meshes))
-    print(len(falcon.mesh[0].vertices))
-    print(falcon.mesh[0].vertices)
-    # app = Application()
-    # window = Window(app)
-    # app.window = window
-    # app.init_solar_system()
-    # app.start_timer()
-    # window.main_loop()
+    # falcon = assimp.load('models/star_wars_falcon/star_wars_falcon.3ds')
+    # print(len(falcon.meshes))
+    # print(len(falcon.mesh[0].vertices))
+    # print(falcon.mesh[0].vertices)
+    app = Application()
+    window = Window(app)
+    app.window = window
+    app.init_solar_system()
+    app.start_timer()
+    window.main_loop()
 
 
 
