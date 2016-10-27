@@ -97,8 +97,8 @@ class Application:
     def init_solar_system(self):
         self.background_painter = BackgroundPainter('images/space5.png')
 
-        solar_rotation = Rotation(angle=0, axes=np.array([0., 0., 1.0]), time=5)
-        self.solar_system = System(master=Star(center=np.array([0., 0., 0.]), radius=0.6, img_name='images/globes/sun.jpg'))
+        solar_rotation = Rotation(angle=0, axes=np.array([0., 0., 1.0]), time=1500)
+        self.solar_system = System(master=Star(center=np.array([0., 0., 0.]), radius=0.6, img_name='images/globes/sun.jpg', rot=solar_rotation))
 
         mercury = Planet(center=np.array([0., 0., 0.]), radius=0.03, img_name='images/globes/mercury.jpg')
         self.solar_system.add_satellite(satellite=mercury, orbit_radius=0.7, orbit_time=400, init_orbit_angle=1.1)
