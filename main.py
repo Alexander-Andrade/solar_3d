@@ -119,9 +119,13 @@ class Application:
         mars = Planet(center=np.array([0., 0., 0.]), radius=0.04, img_name='images/globes/mars.jpg',rot=mars_rotation)
         self.solar_system.add_satellite(mars, 3.0, 1200, 3.1)
 
+        ganimede = Planet(np.array([0., 0., 0.]), 0.03, 'images/globes/ganimede.jpg')
         upiter_rotation = Rotation(angle=3, axes=np.array([0., 0., 1.0]), time=200)
         upiter = Planet(np.array([0., 0., 0.]), 0.2, 'images/globes/upiter.jpg', rot=upiter_rotation)
-        self.solar_system.add_satellite(satellite=upiter, orbit_radius=6.0, orbit_time=6000, init_orbit_angle=1.3)
+        upiter_subsystem = System(upiter)
+        upiter_subsystem.add_satellite(satellite=ganimede, orbit_radius=0.3, orbit_time=200)
+        self.solar_system.append_subsystem(subsystem=upiter_subsystem, orbit_radius=6.0, orbit_time=6000, init_orbit_angle=1.3)
+        #self.solar_system.add_satellite(satellite=upiter, orbit_radius=6.0, orbit_time=6000, init_orbit_angle=1.3)
 
         saturn_rotation = Rotation(angle=26, axes=np.array([0., 0., 1.0]), time=200)
         saturn_ring = Ring(center=np.array([0., 0., 0.]), inner_radius=0.23, outer_radius=0.4, img_name='images/globes/saturn_ring2.png')
