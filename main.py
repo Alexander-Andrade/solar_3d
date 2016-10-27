@@ -7,7 +7,8 @@ from Camera import Camera
 from Timer import Timer
 from BackgroundPainter import BackgroundPainter
 from Star import Star
-from Planet import Planet
+from Planet import Planet, RingedPlanet
+from Ring import Ring
 import numpy as np
 # import pyassimp as assimp
 # import pyglet
@@ -115,7 +116,8 @@ class Application:
         upiter = Planet(np.array([0., 0., 0.]), 0.2, 0.1, 'images/globes/upiter.jpg')
         self.solar_system.add_satellite(upiter, 6.0, 6000, 1.3)
 
-        saturn = Planet(np.array([0., 0., 0.]), 0.19, 0.1, 'images/globes/saturn.jpg')
+        saturn_ring = Ring(0.23, 0.4, 'images/globes/saturn_ring2.png', 30, np.array([1.0, 0., 0.]))
+        saturn = RingedPlanet(np.array([0., 0., 0.]), 0.19, 0.1, 'images/globes/saturn.jpg', saturn_ring)
         self.solar_system.add_satellite(saturn, 7.0, 6500, 3.4)
 
         neptune = Planet(np.array([0., 0., 0.]), 0.19, 0.1, 'images/globes/neptune.jpg')

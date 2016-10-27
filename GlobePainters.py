@@ -22,6 +22,7 @@ class PlanetPainter(Painter):
         glPopMatrix()
         glDisable(GL_TEXTURE_2D)
 
+
 class RingedPlanetPainter(Painter):
 
     def __init__(self, planet, img_name):
@@ -39,8 +40,10 @@ class RingedPlanetPainter(Painter):
         gluQuadricTexture(quadric, True)
         gluQuadricNormals(quadric, GLU_SMOOTH)
         gluSphere(quadric, self.planet.radius, 30, 30)
+        self.planet.ring.draw()
         glPopMatrix()
         glDisable(GL_TEXTURE_2D)
+
 
 class StarPainter(Painter):
     def __init__(self, star, img_name, light=GL_LIGHT0):
