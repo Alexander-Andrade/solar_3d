@@ -1,16 +1,16 @@
 from Shape import Shape
+from Rotation import Rotation
 import numpy as np
 
 
 class Globe(Shape):
 
-    def __init__(self, center, radius, rotation_time=0.0):
+    def __init__(self, center, radius, rot=None):
         self.center = center
         self.radius = radius
         # its rotation around its axis
-        self.rotation = 0.0
-        # time it takes to spin 360 degrees
-        self.rotation_time = rotation_time
+        self.rot = rot
+
 
     def set_gravitycenter(self, center):
         self.center = center
@@ -18,9 +18,6 @@ class Globe(Shape):
     def gravity_center(self):
         return self.center
 
-    # find the rotation of the planet around its axis
-    def calc_rotation(self, time):
-        self.rotation = time*360/self.rotation_time
 
 
 

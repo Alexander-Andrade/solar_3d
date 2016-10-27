@@ -98,26 +98,26 @@ class Application:
 
         self.solar_system = System(Star(np.array([0., 0., 0.]), 0.6, 0.1, 'images/globes/sun.jpg'))
 
-        mercury = Planet(np.array([0., 0., 0.]), 0.03, 0.1, 'images/globes/mercury.jpg')
+        mercury = Planet(np.array([0., 0., 0.]), 0.03, 0.3, 'images/globes/mercury.jpg')
         self.solar_system.add_satellite(mercury, 0.7, 400, 1.1)
 
-        venus = Planet(np.array([0., 0., 0.]), 0.06, 0.1, 'images/globes/venus.jpg')
+        venus = Planet(np.array([0., 0., 0.]), 0.06, 0.5, 'images/globes/venus.jpg')
         self.solar_system.add_satellite(venus, 1.3, 600, 0.5)
 
-        earth = Planet(np.array([0., 0., 0.]), 0.06, 0.1, 'images/globes/earth.jpg')
+        earth = Planet(np.array([0., 0., 0.]), 0.06, 0.2, 'images/globes/earth.jpg')
         earth_subsystem = System(earth)
-        moon = Planet(np.array([0., 0., 0.]), 0.01, 0.1, 'images/globes/moon.jpg')
+        moon = Planet(np.array([0., 0., 0.]), 0.01, 0.0, 'images/globes/moon.jpg')
         earth_subsystem.add_satellite(moon, 0.1, 200)
         self.solar_system.append_subsystem(earth_subsystem, 2.3, 900, 2.3)
 
-        mars = Planet(np.array([0., 0., 0.]), 0.04, 0.1, 'images/globes/mars.jpg')
+        mars = Planet(np.array([0., 0., 0.]), 0.04, 0.4, 'images/globes/mars.jpg')
         self.solar_system.add_satellite(mars, 3.0, 1200, 3.1)
 
-        upiter = Planet(np.array([0., 0., 0.]), 0.2, 0.1, 'images/globes/upiter.jpg')
+        upiter = Planet(np.array([0., 0., 0.]), 0.2, 0.8, 'images/globes/upiter.jpg')
         self.solar_system.add_satellite(upiter, 6.0, 6000, 1.3)
 
-        saturn_ring = Ring(0.23, 0.4, 'images/globes/saturn_ring2.png', 30, np.array([1.0, 0., 0.]))
-        saturn = RingedPlanet(np.array([0., 0., 0.]), 0.19, 0.1, 'images/globes/saturn.jpg', saturn_ring)
+        saturn_ring = Ring(0.23, 0.4, 'images/globes/saturn_ring2.png', 0)
+        saturn = RingedPlanet(np.array([0., 0., 0.]), 0.19, 1.0, 'images/globes/saturn.jpg', saturn_ring, np.array(0.,0.,1.))
         self.solar_system.add_satellite(saturn, 7.0, 6500, 3.4)
 
         neptune = Planet(np.array([0., 0., 0.]), 0.19, 0.1, 'images/globes/neptune.jpg')
