@@ -97,33 +97,46 @@ class Application:
     def init_solar_system(self):
         self.background_painter = BackgroundPainter('images/space5.png')
 
-        solar_rotation = Rotation(angle=0, axes=np.array([0., 0., 1.0]), time=1500)
+        solar_rotation = Rotation(angle=0, axes=np.array([0., 0., 1.0]), time=5000)
         self.solar_system = System(master=Star(center=np.array([0., 0., 0.]), radius=0.6, img_name='images/globes/sun.jpg', rot=solar_rotation))
 
-        mercury = Planet(center=np.array([0., 0., 0.]), radius=0.03, img_name='images/globes/mercury.jpg')
+        mercury_rotation = Rotation(angle=7, axes=np.array([0., 0., 1.0]), time=10)
+        mercury = Planet(center=np.array([0., 0., 0.]), radius=0.05, img_name='images/globes/mercury.jpg', rot=mercury_rotation)
         self.solar_system.add_satellite(satellite=mercury, orbit_radius=0.7, orbit_time=400, init_orbit_angle=1.1)
 
-        venus = Planet(center=np.array([0., 0., 0.]), radius=0.06, img_name='images/globes/venus.jpg')
+        venus_rotation = Rotation(angle=3, axes=np.array([0., 0., 1.0]), time=3000)
+        venus = Planet(center=np.array([0., 0., 0.]), radius=0.06, img_name='images/globes/venus.jpg', rot=venus_rotation)
         self.solar_system.add_satellite(satellite=venus, orbit_radius=1.3, orbit_time=600, init_orbit_angle=0.5)
 
-        earth = Planet(center=np.array([0., 0., 0.]), radius=0.06, img_name='images/globes/earth.jpg')
+        earth_rotation = Rotation(angle=23, axes=np.array([0., 0., 1.0]), time=300)
+        earth = Planet(center=np.array([0., 0., 0.]), radius=0.06, img_name='images/globes/earth.jpg', rot=earth_rotation)
         earth_subsystem = System(earth)
         moon = Planet(center=np.array([0., 0., 0.]), radius=0.01, img_name='images/globes/moon.jpg')
         earth_subsystem.add_satellite(satellite=moon, orbit_radius=0.1, orbit_time=200)
         self.solar_system.append_subsystem(subsystem=earth_subsystem, orbit_radius=2.3, orbit_time=900, init_orbit_angle=2.3)
 
-        mars = Planet(center=np.array([0., 0., 0.]), radius=0.04, img_name='images/globes/mars.jpg')
+        mars_rotation = Rotation(angle=25, axes=np.array([0., 0., 1.0]), time=301)
+        mars = Planet(center=np.array([0., 0., 0.]), radius=0.04, img_name='images/globes/mars.jpg',rot=mars_rotation)
         self.solar_system.add_satellite(mars, 3.0, 1200, 3.1)
 
-        upiter = Planet(np.array([0., 0., 0.]), 0.2, 'images/globes/upiter.jpg')
+        upiter_rotation = Rotation(angle=3, axes=np.array([0., 0., 1.0]), time=200)
+        upiter = Planet(np.array([0., 0., 0.]), 0.2, 'images/globes/upiter.jpg', rot=upiter_rotation)
         self.solar_system.add_satellite(satellite=upiter, orbit_radius=6.0, orbit_time=6000, init_orbit_angle=1.3)
 
+        saturn_rotation = Rotation(angle=26, axes=np.array([0., 0., 1.0]), time=200)
         saturn_ring = Ring(center=np.array([0., 0., 0.]), inner_radius=0.23, outer_radius=0.4, img_name='images/globes/saturn_ring2.png')
-        saturn = RingedPlanet(center=np.array([0., 0., 0.]),radius=0.19, img_name='images/globes/saturn.jpg', ring=saturn_ring)
+        saturn = RingedPlanet(center=np.array([0., 0., 0.]),radius=0.19, img_name='images/globes/saturn.jpg', ring=saturn_ring, rot=saturn_rotation)
         self.solar_system.add_satellite(satellite=saturn, orbit_radius=7.0, orbit_time=6500, init_orbit_angle=3.4)
 
-        neptune = Planet(center=np.array([0., 0., 0.]), radius=0.19, img_name='images/globes/neptune.jpg')
-        self.solar_system.add_satellite(satellite=neptune, orbit_radius=8.2, orbit_time=8000, init_orbit_angle=2.624)
+        uranus_rotation = Rotation(angle=82, axes=np.array([0., 0., 1.0]), time=200)
+        uranus_ring = Ring(center=np.array([0., 0., 0.]), inner_radius=0.23, outer_radius=0.4,
+                           img_name='images/globes/uranus_ring.png')
+        uranus = RingedPlanet(center=np.array([0., 0., 0.]), radius=0.19, img_name='images/globes/uranus.jpg', ring=uranus_ring, rot=uranus_rotation)
+        self.solar_system.add_satellite(satellite=uranus, orbit_radius=8.2, orbit_time=8000, init_orbit_angle=2.624)
+
+        neptune_rotation = Rotation(angle=29, axes=np.array([0., 0., 1.0]), time=200)
+        neptune = Planet(center=np.array([0., 0., 0.]), radius=0.19, img_name='images/globes/neptune.jpg', rot=neptune_rotation)
+        self.solar_system.add_satellite(satellite=neptune, orbit_radius=12.2, orbit_time=10000, init_orbit_angle=1.8)
 
     def start_timer(self):
         self.timer.start(self.on_timer)

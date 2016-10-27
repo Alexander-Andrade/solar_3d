@@ -6,8 +6,8 @@ class RingPainter(Painter):
 
     def __init__(self, ring, img_name):
         self.ring = ring
-        self.slices = 30
-        self.loops = 30
+        self.slices = 60
+        self.loops = 60
         self.texture = Texture2D(img_name)
 
     def draw(self):

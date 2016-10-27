@@ -9,7 +9,7 @@ class Rotation:
         Left = 1
         Right = 2
 
-    def __init__(self, angle=0, axes=np.array([0., 0., 1.0]), time=0.0, direct=Direction.Left):
+    def __init__(self, angle=0, axes=np.array([0., 0., 1.0]), time=0.0, direct=Direction.Right):
         self.time = time
         self.direct = direct
         # angle in degrees
@@ -21,7 +21,7 @@ class Rotation:
 
     def update_angle(self, global_time):
         if not self.time == 0:
-            if self.direct == Rotation.Direction.Right:
+            if self.direct == Rotation.Direction.Left:
                 self.angle = global_time * 360 / self.time
             else:
                 self.angle = -global_time * 360 / self.time
