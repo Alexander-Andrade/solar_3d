@@ -9,6 +9,7 @@ from BackgroundPainter import BackgroundPainter
 from Star import Star
 from Planet import Planet, RingedPlanet
 from Ring import Ring
+from Rotation import Rotation
 import numpy as np
 # import pyassimp as assimp
 # import pyglet
@@ -96,32 +97,33 @@ class Application:
     def init_solar_system(self):
         self.background_painter = BackgroundPainter('images/space5.png')
 
-        self.solar_system = System(Star(np.array([0., 0., 0.]), 0.6, 0.1, 'images/globes/sun.jpg'))
+        solar_rotation = Rotation(angle=0, axes=np.array([0., 0., 1.0]), time=5)
+        self.solar_system = System(master=Star(center=np.array([0., 0., 0.]), radius=0.6, img_name='images/globes/sun.jpg'))
 
-        mercury = Planet(np.array([0., 0., 0.]), 0.03, 0.3, 'images/globes/mercury.jpg')
-        self.solar_system.add_satellite(mercury, 0.7, 400, 1.1)
+        mercury = Planet(center=np.array([0., 0., 0.]), radius=0.03, img_name='images/globes/mercury.jpg')
+        self.solar_system.add_satellite(satellite=mercury, orbit_radius=0.7, orbit_time=400, init_orbit_angle=1.1)
 
-        venus = Planet(np.array([0., 0., 0.]), 0.06, 0.5, 'images/globes/venus.jpg')
-        self.solar_system.add_satellite(venus, 1.3, 600, 0.5)
+        venus = Planet(center=np.array([0., 0., 0.]), radius=0.06, img_name='images/globes/venus.jpg')
+        self.solar_system.add_satellite(satellite=venus, orbit_radius=1.3, orbit_time=600, init_orbit_angle=0.5)
 
-        earth = Planet(np.array([0., 0., 0.]), 0.06, 0.2, 'images/globes/earth.jpg')
+        earth = Planet(center=np.array([0., 0., 0.]), radius=0.06, img_name='images/globes/earth.jpg')
         earth_subsystem = System(earth)
-        moon = Planet(np.array([0., 0., 0.]), 0.01, 0.0, 'images/globes/moon.jpg')
-        earth_subsystem.add_satellite(moon, 0.1, 200)
-        self.solar_system.append_subsystem(earth_subsystem, 2.3, 900, 2.3)
+        moon = Planet(center=np.array([0., 0., 0.]), radius=0.01, img_name='images/globes/moon.jpg')
+        earth_subsystem.add_satellite(satellite=moon, orbit_radius=0.1, orbit_time=200)
+        self.solar_system.append_subsystem(subsystem=earth_subsystem, orbit_radius=2.3, orbit_time=900, init_orbit_angle=2.3)
 
-        mars = Planet(np.array([0., 0., 0.]), 0.04, 0.4, 'images/globes/mars.jpg')
+        mars = Planet(center=np.array([0., 0., 0.]), radius=0.04, img_name='images/globes/mars.jpg')
         self.solar_system.add_satellite(mars, 3.0, 1200, 3.1)
 
-        upiter = Planet(np.array([0., 0., 0.]), 0.2, 0.8, 'images/globes/upiter.jpg')
-        self.solar_system.add_satellite(upiter, 6.0, 6000, 1.3)
+        upiter = Planet(np.array([0., 0., 0.]), 0.2, 'images/globes/upiter.jpg')
+        self.solar_system.add_satellite(satellite=upiter, orbit_radius=6.0, orbit_time=6000, init_orbit_angle=1.3)
 
-        saturn_ring = Ring(0.23, 0.4, 'images/globes/saturn_ring2.png', 0)
-        saturn = RingedPlanet(np.array([0., 0., 0.]), 0.19, 1.0, 'images/globes/saturn.jpg', saturn_ring, np.array(0.,0.,1.))
-        self.solar_system.add_satellite(saturn, 7.0, 6500, 3.4)
+        saturn_ring = Ring(center=np.array([0., 0., 0.]), inner_radius=0.23, outer_radius=0.4, img_name='images/globes/saturn_ring2.png')
+        saturn = RingedPlanet(center=np.array([0., 0., 0.]),radius=0.19, img_name='images/globes/saturn.jpg', ring=saturn_ring)
+        self.solar_system.add_satellite(satellite=saturn, orbit_radius=7.0, orbit_time=6500, init_orbit_angle=3.4)
 
-        neptune = Planet(np.array([0., 0., 0.]), 0.19, 0.1, 'images/globes/neptune.jpg')
-        self.solar_system.add_satellite(neptune, 8.2, 8000, 2.624)
+        neptune = Planet(center=np.array([0., 0., 0.]), radius=0.19, img_name='images/globes/neptune.jpg')
+        self.solar_system.add_satellite(satellite=neptune, orbit_radius=8.2, orbit_time=8000, init_orbit_angle=2.624)
 
     def start_timer(self):
         self.timer.start(self.on_timer)

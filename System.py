@@ -26,11 +26,13 @@ class System:
         self.orbits.append(orbit)
 
     def update_state(self, time):
-        self.master.rot.update_angle(time)
+        if self.master.rot:
+            self.master.rot.update_angle(time)
         for orbit in self.orbits:
             orbit.update_slave_position(time)
         for satellite in self.satellites:
-            satellite.rot.update_angle(time)
+            if satellite.rot:
+                satellite.rot.update_angle(time)
         for subsystem in self.subsystems:
             subsystem.update_state(time)
 

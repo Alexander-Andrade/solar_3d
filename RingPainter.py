@@ -14,7 +14,8 @@ class RingPainter(Painter):
         glPushAttrib(GL_ENABLE_BIT) #to enable and disable texturing
         glPushMatrix()
         self.texture.bind_texture()
-        self.ring.rot.rotate_matrix()
+        if self.ring.rot:
+            self.ring.rot.rotate_matrix()
         quadric = gluNewQuadric()
         gluQuadricTexture(quadric, True)
         gluQuadricNormals(quadric, GLU_SMOOTH)
