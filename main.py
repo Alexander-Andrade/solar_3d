@@ -82,6 +82,8 @@ class Application:
         self.time_speed = 0.5
         self.timer = Timer(10, True)
 
+        self.n_asteroids = 200
+
         self.solar_system = None
         self.background_painter = None
         self.camera = Camera()
@@ -97,11 +99,16 @@ class Application:
                              b'e': Camera.CameraState.YawRight,
                              }
 
+    def generate_asteroid_size(self):
+        exp_coef = random.expovariate(0.1)
+        scale = np.random.uniform(0.000005, 0.00006, 3)
+        return scale * exp_coef
+
     def add_asteroid_belt(self, solar_system, asteroid_proto, n_asteroids, orbit_radius_limits, orbit_time_limits):
         pix2 = 2*math.pi
         for i in range(n_asteroids):
-            asteroid_rotation = Rotation.generate(10, 5000)
-            new_asteroid = asteroid_proto.clone(center=np.zeros(3), scale=np.random.uniform(0.0001, 0.001, 3), rot=asteroid_rotation)
+            asteroid_rotation = Rotation.generate(300, 5000)
+            new_asteroid = asteroid_proto.clone(center=np.zeros(3), scale=self.generate_asteroid_size(), rot=asteroid_rotation)
             rot_angle = random.uniform(0, pix2)
             solar_system.add_satellite(satellite=new_asteroid, orbit_radius=random.uniform(orbit_radius_limits[0], orbit_radius_limits[1]),
                                        orbit_time=random.uniform(orbit_time_limits[0], orbit_time_limits[1]), init_orbit_angle=rot_angle)
@@ -116,8 +123,8 @@ class Application:
         self.asteroid_proto = ModelPrototype('models/asteroid/Asteroid.obj', center=np.array([0.0, 0.0, 0.0]),
                                              scale=np.array([0.001, 0.001, 0.001]), rot=asteroid_rotation)
 
-        self.solar_system.add_satellite(satellite=self.asteroid_proto, orbit_radius=0.7, orbit_time=400,
-                                        init_orbit_angle=1.9)
+        #self.solar_system.add_satellite(satellite=self.asteroid_proto, orbit_radius=0.7, orbit_time=400,
+        #                                init_orbit_angle=1.9)
 
         mercury_rotation = Rotation(angle=7, axes=np.array([0., 0., 1.0]), time=10)
         mercury = Planet(center=np.zeros(3), radius=0.05, img_name='images/globes/mercury.jpg', rot=mercury_rotation)
@@ -138,7 +145,7 @@ class Application:
         mars = Planet(center=np.zeros(3), radius=0.04, img_name='images/globes/mars.jpg', rot=mars_rotation)
         self.solar_system.add_satellite(mars, orbit_radius=3.0, orbit_time=1200, init_orbit_angle=3.1)
 
-        self.add_asteroid_belt(solar_system=self.solar_system, asteroid_proto=self.asteroid_proto, n_asteroids=10, orbit_radius_limits=(4.0, 5.0), orbit_time_limits=(1000, 2000))
+        self.add_asteroid_belt(solar_system=self.solar_system, asteroid_proto=self.asteroid_proto, n_asteroids=self.n_asteroids, orbit_radius_limits=(4.0, 5.0), orbit_time_limits=(1000, 2000))
 
         ganimede = Planet(np.zeros(3), 0.03, 'images/globes/ganimede.jpg')
         upiter_rotation = Rotation(angle=3, axes=np.array([0., 0., 1.0]), time=200)
