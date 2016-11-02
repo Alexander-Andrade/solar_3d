@@ -144,7 +144,11 @@ class Application:
         neptune = Planet(center=np.array([0., 0., 0.]), radius=0.19, img_name='images/globes/neptune.jpg', rot=neptune_rotation)
         self.solar_system.add_satellite(satellite=neptune, orbit_radius=12.2, orbit_time=10000, init_orbit_angle=1.8)
 
-        self.asteroid = Model('models/asteroid/Asteroid.obj', center=np.array([0.2, 0.2, 0.0]), scale=np.array([0.01, 0.01, 0.01]))
+        asteroid_rotation = Rotation(angle=29, axes=np.array([0., 1.0, 1.0]), time=200)
+        asteroid = Model('models/asteroid/Asteroid.obj', center=np.array([0.0, 0.0, 0.0]),
+                              scale=np.array([0.001, 0.001, 0.001]), rot=asteroid_rotation)
+        self.solar_system.add_satellite(satellite=asteroid, orbit_radius=0.7, orbit_time=400, init_orbit_angle=1.9)
+
 
 
     def start_timer(self):
@@ -173,10 +177,6 @@ class Application:
         self.camera.transform_translation()
         glEnable(GL_DEPTH_TEST) # use z-test only for models not for skybox
         self.solar_system.draw()
-        glPushMatrix()
-        glScalef(0.01, 0.01, 0.01)
-        self.asteroid.draw()
-        glPopMatrix()
         glDisable(GL_DEPTH_TEST)
 
         glFlush()

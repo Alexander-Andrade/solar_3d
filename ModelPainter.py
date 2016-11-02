@@ -49,8 +49,11 @@ class ModelPainter(Painter):
     def draw(self):
         glPushMatrix()
         center = self.model.center
+        scale = self.model.scale
+        rot_axes = self.model.rot.axes
         glTranslatef(center[0], center[1], center[2])
-        glScalef(self.scale[0], self.scale[1], self.scale[2])
+        glScalef(scale[0], scale[1], scale[2])
+        glRotatef(self.model.rot.angle, rot_axes[0], rot_axes[1], rot_axes[2])
         glCallList(self.scene_list)
         glPopMatrix()
 
