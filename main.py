@@ -144,7 +144,7 @@ class Application:
         neptune = Planet(center=np.array([0., 0., 0.]), radius=0.19, img_name='images/globes/neptune.jpg', rot=neptune_rotation)
         self.solar_system.add_satellite(satellite=neptune, orbit_radius=12.2, orbit_time=10000, init_orbit_angle=1.8)
 
-        self.asteroid = Model('models/asteroid/Asteroid.obj', center=np.array([0., 0., 0.]), scale=np.array([0.01, 0.01, 0.01]))
+        self.asteroid = Model('models/asteroid/Asteroid.obj', center=np.array([0.2, 0.2, 0.0]), scale=np.array([0.01, 0.01, 0.01]))
 
 
     def start_timer(self):

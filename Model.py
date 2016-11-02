@@ -22,7 +22,8 @@ class Model(Shape):
 
     def __init__(self, model_name, center, scale, rot=None):
         self.scene = assimp.load(model_name)
-        Shape.__init__(self, center=center, scale=scale, rot=rot, painter=ModelPainter(self))
+        Shape.__init__(self, center=center, scale=scale, rot=rot)
+        self.painter = ModelPainter(self)
 
     # all the changes in the scene will effects on every clone
     def clone(self, center, scale=None, rot=None):

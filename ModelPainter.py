@@ -9,6 +9,10 @@ class ModelPainter(Painter):
     def __init__(self, model, scale=np.array([1., 1., 1.])):
         self.model = model
         self.scale = scale
+        self.scene_list = None
+        self.__compile()
+
+    def __compile(self):
         self.scene_list = glGenLists(1)
         glNewList(self.scene_list, GL_COMPILE)
         self.recursive_render(self.model.scene.rootnode)
