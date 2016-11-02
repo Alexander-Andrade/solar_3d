@@ -108,10 +108,16 @@ class Application:
 
     def init_solar_system(self):
         self.background_painter = BackgroundPainter('images/space5.png')
-        self.asteroid_proto = ModelPrototype('models/asteroid/Asteroid.obj')
 
         solar_rotation = Rotation(angle=0, axes=np.array([0., 0., 1.0]), time=5000)
         self.solar_system = System(master=Star(center=np.array([0., 0., 0.]), radius=0.6, img_name='images/globes/sun.jpg', rot=solar_rotation))
+
+        asteroid_rotation = Rotation(angle=29, axes=np.array([0., 1.0, 1.0]), time=200)
+        self.asteroid_proto = ModelPrototype('models/asteroid/Asteroid.obj', center=np.array([0.0, 0.0, 0.0]),
+                                             scale=np.array([0.001, 0.001, 0.001]), rot=asteroid_rotation)
+
+        self.solar_system.add_satellite(satellite=self.asteroid_proto, orbit_radius=0.7, orbit_time=400,
+                                        init_orbit_angle=1.9)
 
         mercury_rotation = Rotation(angle=7, axes=np.array([0., 0., 1.0]), time=10)
         mercury = Planet(center=np.zeros(3), radius=0.05, img_name='images/globes/mercury.jpg', rot=mercury_rotation)
@@ -155,11 +161,6 @@ class Application:
         neptune_rotation = Rotation(angle=29, axes=np.array([0., 0., 1.0]), time=200)
         neptune = Planet(center=np.zeros(3), radius=0.19, img_name='images/globes/neptune.jpg', rot=neptune_rotation)
         self.solar_system.add_satellite(satellite=neptune, orbit_radius=12.2, orbit_time=10000, init_orbit_angle=1.8)
-
-        # asteroid_rotation = Rotation(angle=29, axes=np.array([0., 1.0, 1.0]), time=200)
-        # asteroid = Model('models/asteroid/Asteroid.obj', center=np.array([0.0, 0.0, 0.0]),
-        #                       scale=np.array([0.001, 0.001, 0.001]), rot=asteroid_rotation)
-        # self.solar_system.add_satellite(satellite=asteroid, orbit_radius=0.7, orbit_time=400, init_orbit_angle=1.9)
 
     def start_timer(self):
         self.timer.start(self.on_timer)

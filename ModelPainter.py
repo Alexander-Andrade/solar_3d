@@ -56,11 +56,11 @@ class ModelPainter(Painter):
         glColor3ub(156, 73, 73)
         center = self.model.center
         scale = self.model.scale
+        glTranslatef(center[0], center[1], center[2])
+        glScalef(scale[0], scale[1], scale[2])
         if self.model.rot:
             rot_axes = self.model.rot.axes
             glRotatef(self.model.rot.angle, rot_axes[0], rot_axes[1], rot_axes[2])
-        glTranslatef(center[0], center[1], center[2])
-        glScalef(scale[0], scale[1], scale[2])
         glCallList(self.scene_list)
         glPopMatrix()
 
