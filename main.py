@@ -11,8 +11,10 @@ from Planet import Planet, RingedPlanet
 from Ring import Ring
 from Rotation import Rotation
 import numpy as np
-# import pyassimp as assimp
+from Model import Model
 # import pyglet
+
+
 class Window:
 
     def __init__(self, application, **kwargs):
@@ -38,7 +40,7 @@ class Window:
         return self.win_size[1]
 
     def __gl_init(self):
-        glClearColor(0.0, 0.0, 0.0, 0.0)
+        glClearColor(1.0, 1.0, 1.0, 1.0)
         glShadeModel(GL_SMOOTH)
         # glEnable(GL_BLEND)
         # glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA)
@@ -142,6 +144,9 @@ class Application:
         neptune = Planet(center=np.array([0., 0., 0.]), radius=0.19, img_name='images/globes/neptune.jpg', rot=neptune_rotation)
         self.solar_system.add_satellite(satellite=neptune, orbit_radius=12.2, orbit_time=10000, init_orbit_angle=1.8)
 
+        self.asteroid = Model(np.array([0., 0., 0.]), 'models/asteroid/Asteroid.obj')
+
+
     def start_timer(self):
         self.timer.start(self.on_timer)
 
@@ -168,6 +173,10 @@ class Application:
         self.camera.transform_translation()
         glEnable(GL_DEPTH_TEST) # use z-test only for models not for skybox
         self.solar_system.draw()
+        glPushMatrix()
+        glScalef(0.01, 0.01, 0.01)
+        self.asteroid.draw()
+        glPopMatrix()
         glDisable(GL_DEPTH_TEST)
 
         glFlush()
@@ -188,17 +197,15 @@ class Application:
             print(e)
 
 
+
+
 if __name__ == "__main__":
     glutInit(sys.argv)
-    # falcon = assimp.load('models/star_wars_falcon/star_wars_falcon.3ds')
-    # print(len(falcon.meshes))
-    # print(len(falcon.mesh[0].vertices))
-    # print(falcon.mesh[0].vertices)
-    app = Application()
-    window = Window(app)
-    app.window = window
-    app.init_solar_system()
-    app.start_timer()
-    window.main_loop()
+    # app = Application()
+    # window = Window(app)
+    # app.window = window
+    # app.init_solar_system()
+    # app.start_timer()
+    # window.main_loop()
 
 
