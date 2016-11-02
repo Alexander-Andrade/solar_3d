@@ -19,7 +19,6 @@ class ModelPainter(Painter):
         glEnable(GL_TEXTURE_2D)
         glPushMatrix()
         glMultMatrixf(node.transformation)
-        meshes = self.model.scene
         # draw all meshes assigned to this node
         for mesh in node.meshes:
             # apply material

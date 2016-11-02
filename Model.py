@@ -2,6 +2,7 @@ from Shape import Shape
 import pyassimp as assimp
 from OpenGL.GL import *
 import numpy as np
+import copy
 
 def gl_face_mode(face):
     n_indices = len(face)
@@ -16,26 +17,25 @@ def gl_face_mode(face):
 
 from ModelPainter import ModelPainter
 
+
 class Model(Shape):
 
-    def __init__(self, model_name, center=np.array([0., 0., 0.]), scale=np.array([1., 1., 1.])):
-        self.center = center
-        self.scale = scale
+    def __init__(self, model_name, center, scale, rot=None):
         self.scene = assimp.load(model_name)
-        self.painter = ModelPainter(self)
+        Shape.__init__(self, center=center, scale=scale, rot=rot, painter=ModelPainter(self))
 
-    def load(self, model_name):
-        self.scene = assimp.load(model_name)
-
-    def copy(self, center, scale):
-
+    # all the changes in the scene will effects on every clone
+    def clone(self, center, scale=None, rot=None):
+        clone = copy.copy(self)
+        clone.center = center
+        if scale:
+            clone.scale = scale
+        if rot:
+            clone.rot = rot
+        return clone
 
     def __del__(self):
-        assimp.release(self.scene)
+        if self.scene:
+            assimp.release(self.scene)
 
-    def set_gravitycenter(self, center):
-        self.center = center
-
-    def gravity_center(self):
-        return self.center
 

@@ -7,16 +7,14 @@ import numpy as np
 class Planet(Globe):
 
     def __init__(self, center, radius, img_name, rot=None):
-        Globe.__init__(self, center, radius, rot)
-        self.painter = PlanetPainter(self, img_name)
+        Globe.__init__(self, center, radius, rot, PlanetPainter(self, img_name))
 
 
 class RingedPlanet(Globe):
 
     def __init__(self, center, radius, img_name, ring, rot=None):
-        Globe.__init__(self, center, radius, rot)
+        Globe.__init__(self, center, radius, rot, RingedPlanetPainter(self, img_name))
         self.ring = ring
-        self.painter = RingedPlanetPainter(self, img_name)
 
     def set_ring(self, ring):
         self.ring = ring

@@ -5,18 +5,10 @@ import numpy as np
 
 class Globe(Shape):
 
-    def __init__(self, center, radius, rot=None):
-        self.center = center
+    def __init__(self, center, radius, rot=None, painter=None):
+        Shape.__init__(self, center=center, rot=rot, painter=painter)
         self.radius = radius
-        # its rotation around its axis
-        self.rot = rot
 
-
-    def set_gravitycenter(self, center):
-        self.center = center
-
-    def gravity_center(self):
-        return self.center
 
 
 
