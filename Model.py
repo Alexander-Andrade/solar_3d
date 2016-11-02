@@ -18,21 +18,21 @@ def gl_face_mode(face):
 from ModelPainter import ModelPainter
 
 
-class Model(Shape):
+class ModelPrototype(Shape):
 
-    def __init__(self, model_name, center, scale, rot=None):
+    def __init__(self, model_name, center=np.zeros(3), scale=np.ones(3), rot=None):
         self.scene = assimp.load(model_name)
         Shape.__init__(self, center=center, scale=scale, rot=rot)
         self.painter = ModelPainter(self)
 
-    # all the changes in the scene will effects on every clone
     def clone(self, center, scale=None, rot=None):
         clone = copy.copy(self)
         clone.center = center
-        if scale:
-            clone.scale = scale
+        clone.scale = scale
+        clone.scene = None
         if rot:
             clone.rot = rot
+        clone.painter = self.painter.clone(clone)
         return clone
 
     def __del__(self):

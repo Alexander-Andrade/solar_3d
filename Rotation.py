@@ -1,6 +1,8 @@
 from Painter import *
 import numpy as np
 from enum import Enum, unique
+import math
+import random
 
 
 class Rotation:
@@ -18,6 +20,10 @@ class Rotation:
 
     def rotate_matrix(self):
         glRotatef(self.angle, self.axes[0], self.axes[1], self.axes[2])
+
+    @staticmethod
+    def generate(min_time, max_time):
+        return Rotation(angle=random.uniform(0, 2*math.pi), axes=np.random.randint(0, 2, 3), time=random.uniform(min_time, max_time))
 
     def update_angle(self, global_time):
         if not self.time == 0:
